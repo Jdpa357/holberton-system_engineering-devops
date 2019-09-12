@@ -1,0 +1,2 @@
+#!/bin/bash
+chmomd 111 hello
