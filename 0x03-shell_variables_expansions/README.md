@@ -1,0 +1,1 @@
+Third project for holberton school of software engineering about Shell, Init files, variables and expansions
