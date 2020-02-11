@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Such AWK very Linux
+
+awk '{print $1, $9}' 'apache-access.log'
