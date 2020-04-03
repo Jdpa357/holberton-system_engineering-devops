@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Configure Nginx server in a ubuntu server 16.04
+# make a redirection 301 
+# make a 404 not found page
+
+sudo apt update &&
+sudo apt -y install nginx
+# Firewall port 80
+sudo ufw allow 'Nginx HTTP'
+# Index file
+echo "Holberton School for the win!" > /var/www/html/index.html
+# 404 file
+echo "Ceci n'est pas une page" > /usr/share/nginx/html/custom_404.html
+# make the redirection
+sed -i '/listen 80 default_server/a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+# make the redirection to 404
+sed -i '/listen 80 default_server/a error_page 404 /custom_404.html; location = /custom_404.html {root /usr/share/nginx/html;\n internal;}' /etc/nginx/sites-available/default
+# start the server
+service nginx start

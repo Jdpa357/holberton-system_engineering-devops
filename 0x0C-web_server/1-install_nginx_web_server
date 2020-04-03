@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Installing nginx on ubuntu server 16.04
+
+sudo apt update &&
+sudo apt -y install nginx
+# Firewall port 80
+sudo ufw allow 'Nginx HTTP'
+# Index file and start
+echo "Holberton School for the win!" > /var/www/html/index.html &&
+sudo /etc/init.d/nginx start

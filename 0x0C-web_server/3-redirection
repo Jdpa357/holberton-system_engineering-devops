@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Configure Nginx server in a ubuntu server 16.04
+# make a redirection 301 
+
+sudo apt update &&
+sudo apt -y install nginx
+# Firewall port 80
+sudo ufw allow 'Nginx HTTP'
+# Index file
+echo "Holberton School for the win!" > /var/www/html/index.html
+# make the redirection
+sed -i '/listen 80 default_server/a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+# start the server
+service nginx start
