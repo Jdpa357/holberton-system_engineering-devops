@@ -1,19 +1,33 @@
 #!/usr/bin/env bash
-# Configure Nginx server in a ubuntu server 16.04
-# make a redirection 301 
-# make a 404 not found page
+# Installs Nginx with the following configurations:
+#+    Listens on port 80.
+#+    Returns a page containing "Holberton School" when queried
+#++    at the root with a curl GET request.
 
-sudo apt update &&
-sudo apt -y install nginx
-# Firewall port 80
+# Instalation of the nginx server
+sudo apt-get update
+sudo apt-get install -y nginx
+
 sudo ufw allow 'Nginx HTTP'
-# Index file
-echo "Holberton School for the win!" > /var/www/html/index.html
-# 404 file
-echo "Ceci n'est pas une page" > /usr/share/nginx/html/custom_404.html
-# make the redirection
-sed -i '/listen 80 default_server/a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
-# make the redirection to 404
-sed -i '/listen 80 default_server/a error_page 404 /custom_404.html; location = /custom_404.html {root /usr/share/nginx/html;\n internal;}' /etc/nginx/sites-available/default
-# start the server
-service nginx start
+
+sudo mkdir -p /var/www/html/
+sudo echo "Holberton School for the win!" | sudo tee /var/www/html/index.html
+sudo echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
+
+sudo printf %s "server {
+     listen      80 default_server;
+     listen      [::]:80 default_server;
+     root        /var/www/html;
+     index       index.html index.htm;
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=DHITmcKUGik;
+    }
+    error_page 404 /404.html;
+    location /404 {
+      root /var/www/html;
+      internal;
+    }
+}
+" | sudo tee /etc/nginx/sites-available/default
+
+sudo service nginx restart
