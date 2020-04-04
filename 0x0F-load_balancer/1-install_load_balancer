@@ -1,4 +1,5 @@
-nstalls HAProxy load balancer with the following configurations:
+#!/usr/bin/env bash
+# Installs HAProxy load balancer with the following configurations:
 
 sudo apt-get update
 sudo apt-get -y install haproxy=2.0.\*
