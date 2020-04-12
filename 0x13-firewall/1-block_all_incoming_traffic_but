@@ -1,6 +1,3 @@
-#!/usr/bin/env bash
-# Configures a ufw firewall
-
 apt-get install ufw
 ufw disable
 ufw enable
