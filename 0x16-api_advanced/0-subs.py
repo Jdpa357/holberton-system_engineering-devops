@@ -7,19 +7,13 @@ import sys
 
 
 def number_of_subscribers(subreddit):
-    """
-    Queries a subreddit and returns the number of subscribers.
-    """
-    # URL and headers to make API requests from
-    url = 'https://reddit.com/r'
-
-    # Subscriber count information
-    subscriber_count = requests.get('{}/{}/about.json?subscribers'
-                                    .format(url, subreddit),
-                                    headers={'User-Agent': 'Mozilla/5.0'}) \
-        .json().get('data').get('subscribers')
-
-    if not subscriber_count:
-        subscriber_count = 0
-
-    return subscriber_count
+    """Return the total number of subscribers on a given subreddit."""
+    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
+    headers = {
+        "User-Agent": "request"
+    }
+    response = requests.get(url, headers=headers, allow_redirects=False)
+    if response.status_code == 404:
+        return 0
+    results = response.json().get("data")
+    return results.get("subscribers")

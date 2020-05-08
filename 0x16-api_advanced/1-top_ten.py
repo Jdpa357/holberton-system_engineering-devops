@@ -7,20 +7,18 @@ import sys
 
 
 def top_ten(subreddit):
-    """
-    Queries a subreddit and returns the top ten posts
-    """
-    # URL and headers to make API requests from
-    url = 'https://reddit.com/r'
-
-    # Subscriber count information
-    top_ten = requests.get('{}/{}/top/.json?count=10'
-                           .format(url, subreddit),
-                           headers={'User-Agent': 'Mozilla/5.0'})\
-        .json().get('data').get('children')[:10]
-
-    if not top_ten:
-        top_ten = None
-
-    for value in top_ten:
-        print(value.get('data').get('title'))
+    data = ""
+    if type(subreddit) is not str:
+        data = "None\n"
+    else:
+        url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+        headers = {'user-agent': 'chrome:cybernuki/0.1.0'}
+        res = requests.get(url, headers=headers)
+        if res.status_code != 200:
+            data = "None\n"
+        else:
+            data_json = res.json().get("data").get("children")
+            for i in range(10):
+                data_title = data_json[i].get("data").get("title")
+                data += "{}\n".format(data_title)
+    print(data, end="")
