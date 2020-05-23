@@ -9,7 +9,7 @@ What you should learn from this project:
 
 ---
 
-### [0. My first postmortem](./https://docs.google.com/document/d/1eisg_TDb4UHhkfMRgKQkk5bnXJYPF5BOh3uX3zgN_MY/)
+### [0. My first postmortem](https://docs.google.com/document/d/1eisg_TDb4UHhkfMRgKQkk5bnXJYPF5BOh3uX3zgN_MY/)
 * Using one of the web stack debugging project issue or an outage you have personally face, write a postmortem.
 Issue Summary
 Timeline
